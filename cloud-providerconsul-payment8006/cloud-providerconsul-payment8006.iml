@@ -17,6 +17,7 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="cloud-api-commons" />
+    <orderEntry type="library" name="Maven: cn.hutool:hutool-all:5.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-consul-discovery:2.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-consul:2.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-commons:2.2.1.RELEASE" level="project" />
@@ -148,6 +149,5 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.6.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: cn.hutool:hutool-all:5.3.5" level="project" />
   </component>
 </module>
