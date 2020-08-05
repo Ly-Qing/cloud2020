@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by LQ on 2020/3/26.
@@ -57,5 +60,46 @@ public class DocumentServiceImpl implements DocumentService {
                 documentDao.saveFileMessage(fileName,filePath);
             }
         }.start();
+    }
+
+    @Override
+    public void genTableDocument(Map<String, Object> params) {
+        List<String> tables = documentDao.getTablesMessage();
+        Map<String,List<Map>> tableMessage = new HashMap<>();
+        tables.stream().forEach(table -> {
+            List<Map> columnsMessage = documentDao.getTableColumnsMessage(table);
+            tableMessage.put(table,columnsMessage);
+        });
+        String fileName = (String)params.get("name");
+        new Thread(){
+            @Override
+            public void run() {
+                String filePath = documentPreFilePath + "/" + fileName + System.currentTimeMillis() + documentSuffixFilePath;
+                ExcelWriter writer = ExcelUtil.getWriter(filePath);
+                //自定义标题别名
+                writer.addHeaderAlias("Field", "字段名称");
+                writer.addHeaderAlias("Type", "字段类型");
+                writer.addHeaderAlias("Null", "可以为空");
+                writer.addHeaderAlias("Key", "约束");
+                writer.addHeaderAlias("Default", "默认");
+                writer.addHeaderAlias("Extra", "其他");
+                tableMessage.entrySet().stream().forEach(entry -> {
+                    String tableName = entry.getKey();
+                    List<Map> columns = entry.getValue();
+                    columns = columns.stream().map(column -> {
+                        String defaultMsg = (String)column.get("Default");
+                        if(defaultMsg == null || "".equals(defaultMsg)){
+                            column.put("Default","");
+                        }
+                        return column;
+                    }).collect(Collectors.toList());
+                    writer.merge(5, tableName);
+                    writer.write(columns, true);
+                });
+                writer.close();
+                documentDao.saveFileMessage(fileName,filePath);
+            }
+        }.start();
+
     }
 }

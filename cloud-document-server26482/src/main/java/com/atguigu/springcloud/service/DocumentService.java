@@ -11,4 +11,6 @@ import java.util.Map;
 public interface DocumentService {
 
     void saveFileMessage(String fileName, List<Map<String,Object>> items);
+
+    void genTableDocument(Map<String, Object> params);
 }

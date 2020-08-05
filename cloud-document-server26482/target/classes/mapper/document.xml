@@ -7,6 +7,15 @@
         (file_name,file_path,create_time,update_time)
         values(#{fileName},#{filePath},now(),now())
     </insert>
+
+    <select id="getTableColumnsMessage" resultType="java.util.HashMap">
+        DESC ${tableName}
+    </select>
+
+    <select id="getTablesMessage" resultType="java.lang.String">
+        show tables
+    </select>
+
 </mapper>
 
 

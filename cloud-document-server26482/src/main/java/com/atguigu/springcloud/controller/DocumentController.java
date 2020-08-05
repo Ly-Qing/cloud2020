@@ -28,4 +28,14 @@ public class DocumentController {
         documentService.saveFileMessage(fileName,(List<Map<String,Object>>)params.get("items"));
         return new CommonResult<Map>(000,"success",params);
     }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST,value = "genTableDocument")
+    public CommonResult<Map> genTableDocument(@RequestBody Map<String,Object> params){
+        //写入文档
+        documentService.genTableDocument(params);
+        return new CommonResult<Map>(000,"success",params);
+    }
+
+
 }
