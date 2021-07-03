@@ -22,20 +22,30 @@ public class DocumentController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST,value = "genDocument")
-    public CommonResult<Map> genDocument(@RequestBody Map<String,Object> params){
+    public CommonResult<String> genDocument(@RequestBody Map<String,Object> params){
         //写入文档
         String fileName = (String)params.get("name");
         documentService.saveFileMessage(fileName,(List<Map<String,Object>>)params.get("items"));
-        return new CommonResult<Map>(000,"success",params);
+        return new CommonResult<String>(000,"success","生成成功");
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST,value = "genTableDocument")
-    public CommonResult<Map> genTableDocument(@RequestBody Map<String,Object> params){
+    public CommonResult<String> genTableDocument(@RequestBody Map<String,Object> params){
         //写入文档
         documentService.genTableDocument(params);
-        return new CommonResult<Map>(000,"success",params);
+        return new CommonResult<String>(000,"success","生成成功");
     }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.POST,value = "genJavaDocument")
+    public CommonResult<String> genJavaDocument(@RequestBody Map<String,Object> params){
+        //写入文档
+        documentService.genJavaDocument(params);
+        return new CommonResult<String>(000,"success","生成成功");
+    }
+
+
 
 
 }
